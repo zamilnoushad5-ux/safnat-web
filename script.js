@@ -22,7 +22,6 @@ const branches = [
 ];
 
 const products = [
-  {
 const defaultProducts = [
   { id:1, name:"Basmati Rice", category:"Grocery", icon:"🍚", price:2.500, oldPrice:2.900, isOffer:true, inStock:true },
   { id:2, name:"Fresh Milk", category:"Fresh Food", icon:"🥛", price:0.650, oldPrice:null, isOffer:false, inStock:true },
