@@ -1,33 +1,31 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>SAFNAT Hypermarket Oman | Shop More. Live Better.</title>
+
   <meta name="description" content="SAFNAT Hypermarket Oman — shop groceries, fresh food, beverages, snacks, household and personal care products. Shop More. Live Better.">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "SAFNAT",
-  "url": "https://zamilnoushad5-ux.github.io/safnat-web/",
-  "description": "SAFNAT Hypermarket Oman — Shop More. Live Better."
-}
-</script>
+
   <meta property="og:title" content="SAFNAT Hypermarket Oman">
-<meta property="og:description" content="Shop groceries, fresh food, beverages, snacks, household and personal care products.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://zamilnoushad5-ux.github.io/safnat-web/">
+  <meta property="og:description" content="Shop groceries, fresh food, beverages, snacks, household and personal care products.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zamilnoushad5-ux.github.io/safnat-web/">
+
+  <meta name="google-site-verification" content="u-GJqrZ_-8VvH6ttRKjPEosg3TcLl3BBdI90IWUPcoc">
+
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "SAFNAT",
-  "url": "https://zamilnoushad5-ux.github.io/safnat-web/",
-  "description": "SAFNAT Hypermarket Oman — Shop More. Live Better."
-}
-</script>
-  <meta name="google-site-verification" content="u-GJqrZ_-8VvH6ttRKjPEosg3TcLl3BBdI90IWUPcoc" />
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "SAFNAT",
+    "url": "https://zamilnoushad5-ux.github.io/safnat-web/",
+    "description": "SAFNAT Hypermarket Oman — Shop More. Live Better."
+  }
+  </script>
+
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
@@ -35,6 +33,7 @@
 <body>
 
 <header class="topbar">
+
   <div class="logo">
     <span class="logo-s">S</span>
     <div>
@@ -44,7 +43,11 @@
   </div>
 
   <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search products...">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search products..."
+    >
     <button onclick="searchProducts()">🔍</button>
   </div>
 
@@ -55,6 +58,7 @@
   <button class="cart-btn" onclick="openCart()">
     🛒 Cart <span id="cartCount">0</span>
   </button>
+
 </header>
 
 <nav class="navbar">
@@ -66,80 +70,312 @@
 </nav>
 
 <div class="pickup-banner">
-  🛍️ <strong>Store Pickup Only</strong> — No Home Delivery Available
+  🛍️ <strong>Store Pickup Only</strong>
+  — No Home Delivery Available
 </div>
 
 <main>
 
-<section id="home" class="hero">
-  <div class="hero-content">
-    <p class="welcome">WELCOME TO SAFNAT</p>
-    <h1>Quality Products.<br><span>Better Prices.</span></h1>
-    <p>Everything you need for your home, all in one place.</p>
+  <!-- HOME -->
 
-    <div class="hero-buttons">
-      <a href="#products" class="btn primary">Shop Products</a>
-      <a href="#branches" class="btn secondary">Find a Branch</a>
+  <section id="home" class="hero">
+
+    <div class="hero-content">
+
+      <p class="welcome">WELCOME TO SAFNAT</p>
+
+      <h1>
+        Quality Products.<br>
+        <span>Better Prices.</span>
+      </h1>
+
+      <p>
+        Everything you need for your home,
+        all in one place.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#products" class="btn primary">
+          Shop Products
+        </a>
+
+        <a href="#branches" class="btn secondary">
+          Find a Branch
+        </a>
+      </div>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-heading">
-    <p>EXPLORE</p>
-    <h2>Shop by Category</h2>
-  </div>
+  </section>
 
-  <div class="category-grid">
-    <button onclick="filterCategory('Grocery')">🛒<span>Grocery</span></button>
-    <button onclick="filterCategory('Fresh Food')">🥬<span>Fresh Food</span></button>
-    <button onclick="filterCategory('Beverages')">🥤<span>Beverages</span></button>
-    <button onclick="filterCategory('Snacks')">🍪<span>Snacks</span></button>
-    <button onclick="filterCategory('Household')">🧹<span>Household</span></button>
-    <button onclick="filterCategory('Personal Care')">🧴<span>Personal Care</span></button>
-  </div>
-</section>
 
-<section id="offers" class="offer-banner">
-  <div>
-    <p>SPECIAL OFFERS</p>
-    <h2>Great Products.<br>Great Prices.</h2>
-    <button onclick="showOffers()">View Offers →</button>
-  </div>
-  <div class="offer-icon">🏷️</div>
-</section>
+  <!-- CATEGORIES -->
 
-<section id="products" class="section">
-  <div class="section-heading product-heading">
+  <section class="section">
+
+    <div class="section-heading">
+      <p>EXPLORE</p>
+      <h2>Shop by Category</h2>
+    </div>
+
+    <div class="category-grid">
+
+      <button onclick="filterCategory('Grocery')">
+        🛒
+        <span>Grocery</span>
+      </button>
+
+      <button onclick="filterCategory('Fresh Food')">
+        🥬
+        <span>Fresh Food</span>
+      </button>
+
+      <button onclick="filterCategory('Beverages')">
+        🥤
+        <span>Beverages</span>
+      </button>
+
+      <button onclick="filterCategory('Snacks')">
+        🍪
+        <span>Snacks</span>
+      </button>
+
+      <button onclick="filterCategory('Household')">
+        🧹
+        <span>Household</span>
+      </button>
+
+      <button onclick="filterCategory('Personal Care')">
+        🧴
+        <span>Personal Care</span>
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- OFFERS -->
+
+  <section id="offers" class="offer-banner">
+
     <div>
-      <p>OUR STORE</p>
-      <h2 id="productsTitle">Featured Products</h2>
+
+      <p>SPECIAL OFFERS</p>
+
+      <h2>
+        Great Products.<br>
+        Great Prices.
+      </h2>
+
+      <button onclick="showOffers()">
+        View Offers →
+      </button>
+
     </div>
-    <button id="resetBtn" onclick="resetProducts()" class="reset-btn">
-      Show All
-    </button>
+
+    <div class="offer-icon">
+      🏷️
+    </div>
+
+  </section>
+
+
+  <!-- PRODUCTS -->
+
+  <section id="products" class="section">
+
+    <div class="section-heading product-heading">
+
+      <div>
+        <p>OUR STORE</p>
+        <h2 id="productsTitle">
+          Featured Products
+        </h2>
+      </div>
+
+      <button
+        id="resetBtn"
+        onclick="resetProducts()"
+        class="reset-btn"
+      >
+        Show All
+      </button>
+
+    </div>
+
+    <div
+      id="productGrid"
+      class="product-grid"
+    ></div>
+
+  </section>
+
+
+  <!-- BRANCHES -->
+
+  <section
+    id="branches"
+    class="section branches-section"
+  >
+
+    <div class="section-heading">
+
+      <p>VISIT US</p>
+
+      <h2>Our Branches</h2>
+
+    </div>
+
+    <div
+      id="branchGrid"
+      class="branch-grid"
+    ></div>
+
+  </section>
+
+
+  <!-- FEATURES -->
+
+  <section class="features">
+
+    <div>
+      <span>✓</span>
+
+      <h3>Quality Products</h3>
+
+      <p>
+        Products you can trust
+        for your family.
+      </p>
+    </div>
+
+
+    <div>
+      <span>💰</span>
+
+      <h3>Better Prices</h3>
+
+      <p>
+        Great value every day
+        at SAFNAT.
+      </p>
+    </div>
+
+
+    <div>
+      <span>🛍️</span>
+
+      <h3>Easy Pickup</h3>
+
+      <p>
+        Shop online and
+        collect from our stores.
+      </p>
+    </div>
+
+
+    <div>
+      <span>🏪</span>
+
+      <h3>Local Stores</h3>
+
+      <p>
+        Visit your nearest
+        SAFNAT branch.
+      </p>
+    </div>
+
+  </section>
+
+
+  <!-- ABOUT -->
+
+  <section
+    id="about"
+    class="section about-section"
+  >
+
+    <div class="section-heading">
+
+      <p>ABOUT SAFNAT</p>
+
+      <h2>Shop More. Live Better.</h2>
+
+    </div>
+
+    <div class="about-content">
+
+      <p>
+        SAFNAT is your local shopping destination
+        for groceries, fresh food, beverages,
+        snacks, household products and personal care.
+      </p>
+
+      <p>
+        We focus on quality products,
+        better prices and convenient
+        store pickup.
+      </p>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+  <div class="footer-brand">
+
+    <div class="logo">
+
+      <span class="logo-s">S</span>
+
+      <div>
+        <strong>SAFNAT</strong>
+        <small>Shop More. Live Better.</small>
+      </div>
+
+    </div>
+
+    <p>
+      Quality Products. Better Prices.
+    </p>
+
   </div>
 
-  <div id="productGrid" class="product-grid"></div>
-</section>
 
-<section id="branches" class="section branches-section">
-  <div class="section-heading">
-    <p>VISIT US</p>
-    <h2>Our Branches</h2>
+  <div class="footer-links">
+
+    <a href="#home">Home</a>
+    <a href="#products">Products</a>
+    <a href="#offers">Offers</a>
+    <a href="#branches">Branches</a>
+    <a href="#about">About Us</a>
+
   </div>
 
-  <div id="branchGrid" class="branch-grid"></div>
-</section>
 
-<section class="features">
-  <div>
-    <span>✓</span>
-    <h3>Quality Products</h3>
-    <p>Products you can trust for your family.</p>
+  <div class="footer-bottom">
+
+    <p>
+      © 2026 SAFNAT. All rights reserved.
+    </p>
+
+    <p>
+      🛍️ Store Pickup Only
+    </p>
+
   </div>
 
-  <div>
-    <span>💰</span>
-    <h3>Better Prices</h3>
-    <p>Great value every
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
