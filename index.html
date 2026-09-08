@@ -374,7 +374,27 @@
   </div>
 
 </footer>
+<!-- CART POPUP -->
+<div id="cartModal" class="cart-modal">
+  <div class="cart-box">
+    <button class="cart-close" onclick="closeCart()">✕</button>
 
+    <h2>🛒 Your Cart</h2>
+
+    <div id="cartItems"></div>
+
+    <div class="cart-total">
+      <strong>Total:</strong>
+      <strong id="cartTotal">0.000 OMR</strong>
+    </div>
+
+    <p class="pickup-note">🛍️ Store Pickup Only</p>
+
+    <button class="checkout-btn" onclick="checkoutCart()">
+      Continue to Pickup
+    </button>
+  </div>
+</div>
 
 <script src="script.js"></script>
   
