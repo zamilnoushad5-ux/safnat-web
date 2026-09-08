@@ -1,3 +1,4 @@
+
 const branches = [
   {
     id: "souq6",
@@ -104,20 +105,36 @@ const defaultProducts = [
   }
 ];
 
-let products =
-  JSON.parse(localStorage.getItem("safnat_products")) ||
-  defaultProducts;
+let products;
 
-let cart = JSON.parse(localStorage.getItem("safnat_cart")) || [];
+try {
+  const savedProducts = localStorage.getItem("safnat_products");
+  products = savedProducts ? JSON.parse(savedProducts) : defaultProducts;
+} catch (error) {
+  products = defaultProducts;
+}
 
-let selectedCategory = "All";
+let cart = [];
+
+try {
+  const savedCart = localStorage.getItem("safnat_cart");
+  cart = savedCart ? JSON.parse(savedCart) : [];
+} catch (error) {
+  cart = [];
+}
 
 function saveProducts() {
-  localStorage.setItem("safnat_products", JSON.stringify(products));
+  localStorage.setItem(
+    "safnat_products",
+    JSON.stringify(products)
+  );
 }
 
 function saveCart() {
-  localStorage.setItem("safnat_cart", JSON.stringify(cart));
+  localStorage.setItem(
+    "safnat_cart",
+    JSON.stringify(cart)
+  );
 }
 
 function renderProducts(list = products) {
@@ -125,7 +142,7 @@ function renderProducts(list = products) {
 
   if (!grid) return;
 
-  if (list.length === 0) {
+  if (!list.length) {
     grid.innerHTML = `
       <div class="empty-message">
         <h3>No products found</h3>
@@ -137,34 +154,61 @@ function renderProducts(list = products) {
 
   grid.innerHTML = list.map(product => `
     <div class="product-card">
-      ${product.isOffer ? `<span class="offer-badge">OFFER</span>` : ""}
+
+      ${
+        product.isOffer
+          ? `<span class="offer-badge">OFFER</span>`
+          : ""
+      }
 
       <div class="product-icon">
         ${product.icon || "🛒"}
       </div>
 
-      <p class="product-category">${product.category}</p>
+      <p class="product-category">
+        ${product.category}
+      </p>
 
       <h3>${product.name}</h3>
 
       <div class="product-price">
-        <strong>${Number(product.price).toFixed(3)} OMR</strong>
+
+        <strong>
+          ${Number(product.price).toFixed(3)} OMR
+        </strong>
+
         ${
           product.oldPrice
-            ? `<span>${Number(product.oldPrice).toFixed(3)} OMR</span>`
+            ? `
+              <span>
+                ${Number(product.oldPrice).toFixed(3)} OMR
+              </span>
+            `
             : ""
         }
+
       </div>
 
       ${
         product.inStock
-          ? `<button class="add-cart-btn" onclick="addToCart(${product.id})">
-               Add to Cart
-             </button>`
-          : `<button class="add-cart-btn disabled" disabled>
-               Out of Stock
-             </button>`
+          ? `
+            <button
+              class="add-cart-btn"
+              onclick="addToCart(${product.id})"
+            >
+              Add to Cart
+            </button>
+          `
+          : `
+            <button
+              class="add-cart-btn disabled"
+              disabled
+            >
+              Out of Stock
+            </button>
+          `
       }
+
     </div>
   `).join("");
 }
@@ -176,145 +220,183 @@ function renderBranches() {
 
   grid.innerHTML = branches.map(branch => `
     <div class="branch-card">
-      <div class="branch-icon">📍</div>
+
+      <div class="branch-icon">
+        📍
+      </div>
+
       <h3>${branch.name}</h3>
+
       <p>${branch.location}</p>
+
       <button onclick="selectBranch('${branch.id}')">
         Select Branch
       </button>
+
     </div>
   `).join("");
 }
 
 function selectBranch(branchId) {
-  const branch = branches.find(item => item.id === branchId);
+  const branch = branches.find(
+    branch => branch.id === branchId
+  );
 
   if (!branch) return;
 
-  localStorage.setItem("safnat_branch", branchId);
+  localStorage.setItem(
+    "safnat_branch",
+    branchId
+  );
 
-  const selected = document.getElementById("selectedBranch");
+  const selectedBranch =
+    document.getElementById("selectedBranch");
 
-  if (selected) {
-    selected.textContent = branch.name;
+  if (selectedBranch) {
+    selectedBranch.textContent =
+      branch.name;
   }
 
-  closeBranchModal();
-
-  alert(`Branch selected: ${branch.name}`);
+  document
+    .getElementById("branches")
+    ?.scrollIntoView({
+      behavior: "smooth"
+    });
 }
 
 function loadSelectedBranch() {
-  const savedId = localStorage.getItem("safnat_branch");
+  const savedId =
+    localStorage.getItem("safnat_branch");
 
   if (!savedId) return;
 
-  const branch = branches.find(item => item.id === savedId);
+  const branch = branches.find(
+    branch => branch.id === savedId
+  );
 
   if (!branch) return;
 
-  const selected = document.getElementById("selectedBranch");
+  const selectedBranch =
+    document.getElementById("selectedBranch");
 
-  if (selected) {
-    selected.textContent = branch.name;
+  if (selectedBranch) {
+    selectedBranch.textContent =
+      branch.name;
   }
 }
 
 function filterCategory(category) {
-  selectedCategory = category;
+  const filteredProducts =
+    products.filter(
+      product => product.category === category
+    );
 
-  const filtered = products.filter(
-    product => product.category === category
-  );
-
-  const title = document.getElementById("productsTitle");
+  const title =
+    document.getElementById("productsTitle");
 
   if (title) {
     title.textContent = category;
   }
 
-  renderProducts(filtered);
+  renderProducts(filteredProducts);
 
   document
     .getElementById("products")
-    ?.scrollIntoView({ behavior: "smooth" });
+    ?.scrollIntoView({
+      behavior: "smooth"
+    });
 }
 
 function resetProducts() {
-  selectedCategory = "All";
-
-  const title = document.getElementById("productsTitle");
+  const title =
+    document.getElementById("productsTitle");
 
   if (title) {
-    title.textContent = "Featured Products";
+    title.textContent =
+      "Featured Products";
   }
 
   renderProducts(products);
 }
 
 function searchProducts() {
-  const input = document.getElementById("searchInput");
+  const input =
+    document.getElementById("searchInput");
 
   if (!input) return;
 
-  const searchText = input.value.trim().toLowerCase();
+  const searchText =
+    input.value.trim().toLowerCase();
 
-  let results = products;
-
-  if (selectedCategory !== "All") {
-    results = results.filter(
-      product => product.category === selectedCategory
-    );
+  if (!searchText) {
+    resetProducts();
+    return;
   }
 
-  if (searchText) {
-    results = results.filter(product =>
-      product.name.toLowerCase().includes(searchText) ||
-      product.category.toLowerCase().includes(searchText)
+  const results =
+    products.filter(product =>
+      product.name
+        .toLowerCase()
+        .includes(searchText) ||
+      product.category
+        .toLowerCase()
+        .includes(searchText)
     );
-  }
 
-  const title = document.getElementById("productsTitle");
+  const title =
+    document.getElementById("productsTitle");
 
   if (title) {
-    title.textContent = searchText
-      ? `Search: ${input.value}`
-      : selectedCategory === "All"
-        ? "Featured Products"
-        : selectedCategory;
+    title.textContent =
+      `Search: ${input.value}`;
   }
 
   renderProducts(results);
 
   document
     .getElementById("products")
-    ?.scrollIntoView({ behavior: "smooth" });
+    ?.scrollIntoView({
+      behavior: "smooth"
+    });
 }
 
 function showOffers() {
-  selectedCategory = "All";
+  const offers =
+    products.filter(
+      product => product.isOffer
+    );
 
-  const offers = products.filter(product => product.isOffer);
-
-  const title = document.getElementById("productsTitle");
+  const title =
+    document.getElementById("productsTitle");
 
   if (title) {
-    title.textContent = "Special Offers";
+    title.textContent =
+      "Special Offers";
   }
 
   renderProducts(offers);
 
   document
     .getElementById("products")
-    ?.scrollIntoView({ behavior: "smooth" });
+    ?.scrollIntoView({
+      behavior: "smooth"
+    });
 }
 
 function addToCart(productId) {
-  const product = products.find(item => item.id === productId);
+  const product =
+    products.find(
+      product => product.id === productId
+    );
 
-  if (!product || !product.inStock) return;
+  if (!product || !product.inStock) {
+    return;
+  }
 
-  const existing = cart.find(item => item.id === productId);
+  const existing =
+    cart.find(
+      item => item.id === productId
+    );
 
   if (existing) {
     existing.quantity += 1;
@@ -330,36 +412,50 @@ function addToCart(productId) {
 
   saveCart();
   updateCartCount();
-
-  alert(`${product.name} added to cart!`);
 }
 
 function updateCartCount() {
-  const count = document.getElementById("cartCount");
+  const count =
+    document.getElementById("cartCount");
 
   if (!count) return;
 
-  const total = cart.reduce(
-    (sum, item) => sum + item.quantity,
-    0
-  );
+  const total =
+    cart.reduce(
+      (sum, item) =>
+        sum + item.quantity,
+      0
+    );
 
   count.textContent = total;
 }
 
 function openCart() {
-  if (cart.length === 0) {
+  if (!cart.length) {
     alert("Your cart is empty.");
     return;
   }
 
-  let message = "Your SAFNAT Cart:\n\n";
+  let message =
+    "SAFNAT CART\n\n";
 
   cart.forEach(item => {
-    message += `${item.icon} ${item.name} × ${item.quantity}\n`;
+    message +=
+      `${item.icon} ${item.name} × ${item.quantity}\n`;
   });
 
-  message += "\nStore Pickup Only 🛍️";
+  const total =
+    cart.reduce(
+      (sum, item) =>
+        sum + item.price * item.quantity,
+      0
+    );
+
+  message +=
+    `\nTotal: ${total.toFixed(3)} OMR`;
+
+  message +=
+    "\n\n🛍️ Store Pickup Only";
 
   alert(message);
 }
@@ -367,26 +463,35 @@ function openCart() {
 function openBranchModal() {
   document
     .getElementById("branches")
-    ?.scrollIntoView({ behavior: "smooth" });
-}
-
-function closeBranchModal() {
-  // Reserved for future branch popup.
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  renderProducts();
-  renderBranches();
-  loadSelectedBranch();
-  updateCartCount();
-
-  const searchInput = document.getElementById("searchInput");
-
-  if (searchInput) {
-    searchInput.addEventListener("keydown", event => {
-      if (event.key === "Enter") {
-        searchProducts();
-      }
+    ?.scrollIntoView({
+      behavior: "smooth"
     });
+}
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+    renderProducts();
+    renderBranches();
+    loadSelectedBranch();
+    updateCartCount();
+
+    const searchInput =
+      document.getElementById(
+        "searchInput"
+      );
+
+    if (searchInput) {
+      searchInput.addEventListener(
+        "keydown",
+        function (event) {
+          if (event.key === "Enter") {
+            searchProducts();
+          }
+        }
+      );
+    }
+
   }
-});
+);
