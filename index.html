@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAFNAT — Shop More. Live Better.</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="logo">
+    <span class="logo-s">S</span>
+    <div>
+      <strong>SAFNAT</strong>
+      <small>Shop More. Live Better.</small>
+    </div>
+  </div>
+
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search products...">
+    <button onclick="searchProducts()">🔍</button>
+  </div>
+
+  <button class="branch-btn" onclick="openBranchModal()">
+    📍 <span id="selectedBranch">Select Branch</span>
+  </button>
+
+  <button class="cart-btn" onclick="openCart()">
+    🛒 Cart <span id="cartCount">0</span>
+  </button>
+</header>
+
+<nav class="navbar">
+  <a href="#home">Home</a>
+  <a href="#offers">Offers</a>
+  <a href="#products">Products</a>
+  <a href="#branches">Branches</a>
+  <a href="#about">About Us</a>
+</nav>
+
+<div class="pickup-banner">
+  🛍️ <strong>Store Pickup Only</strong> — No Home Delivery Available
+</div>
+
+<main>
+
+<section id="home" class="hero">
+  <div class="hero-content">
+    <p class="welcome">WELCOME TO SAFNAT</p>
+    <h1>Quality Products.<br><span>Better Prices.</span></h1>
+    <p>Everything you need for your home, all in one place.</p>
+
+    <div class="hero-buttons">
+      <a href="#products" class="btn primary">Shop Products</a>
+      <a href="#branches" class="btn secondary">Find a Branch</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-heading">
+    <p>EXPLORE</p>
+    <h2>Shop by Category</h2>
+  </div>
+
+  <div class="category-grid">
+    <button onclick="filterCategory('Grocery')">🛒<span>Grocery</span></button>
+    <button onclick="filterCategory('Fresh Food')">🥬<span>Fresh Food</span></button>
+    <button onclick="filterCategory('Beverages')">🥤<span>Beverages</span></button>
+    <button onclick="filterCategory('Snacks')">🍪<span>Snacks</span></button>
+    <button onclick="filterCategory('Household')">🧹<span>Household</span></button>
+    <button onclick="filterCategory('Personal Care')">🧴<span>Personal Care</span></button>
+  </div>
+</section>
+
+<section id="offers" class="offer-banner">
+  <div>
+    <p>SPECIAL OFFERS</p>
+    <h2>Great Products.<br>Great Prices.</h2>
+    <button onclick="showOffers()">View Offers →</button>
+  </div>
+  <div class="offer-icon">🏷️</div>
+</section>
+
+<section id="products" class="section">
+  <div class="section-heading product-heading">
+    <div>
+      <p>OUR STORE</p>
+      <h2 id="productsTitle">Featured Products</h2>
+    </div>
+    <button id="resetBtn" onclick="resetProducts()" class="reset-btn">
+      Show All
+    </button>
+  </div>
+
+  <div id="productGrid" class="product-grid"></div>
+</section>
+
+<section id="branches" class="section branches-section">
+  <div class="section-heading">
+    <p>VISIT US</p>
+    <h2>Our Branches</h2>
+  </div>
+
+  <div id="branchGrid" class="branch-grid"></div>
+</section>
+
+<section class="features">
+  <div>
+    <span>✓</span>
+    <h3>Quality Products</h3>
+    <p>Products you can trust for your family.</p>
+  </div>
+
+  <div>
+    <span>💰</span>
+    <h3>Better Prices</h3>
+    <p>Great value every
