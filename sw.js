@@ -1,4 +1,4 @@
-const CACHE_NAME = "safnat-v1";
+const CACHE_NAME = "safnat-v2";
 
 const FILES_TO_CACHE = [
   "./",
