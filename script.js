@@ -431,35 +431,96 @@ function updateCartCount() {
 }
 
 function openCart() {
+  const modal = document.getElementById("cartModal");
+  const itemsBox = document.getElementById("cartItems");
+  const totalBox = document.getElementById("cartTotal");
+
+  if (!modal || !itemsBox || !totalBox) return;
+
+  if (!cart.length) {
+    itemsBox.innerHTML = `
+      <div class="empty-message">
+        <h3>Your cart is empty</h3>
+        <p>Add some products to your cart.</p>
+      </div>
+    `;
+    totalBox.textContent = "0.000 OMR";
+    modal.classList.add("show");
+    return;
+  }
+
+  itemsBox.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-info">
+        <span class="cart-item-icon">${item.icon || "🛒"}</span>
+        <div>
+          <strong>${item.name}</strong>
+          <p>${Number(item.price).toFixed(3)} OMR each</p>
+        </div>
+      </div>
+
+      <div class="cart-item-actions">
+        <button onclick="changeQuantity(${item.id}, -1)">−</button>
+        <span>${item.quantity}</span>
+        <button onclick="changeQuantity(${item.id}, 1)">+</button>
+        <button onclick="removeFromCart(${item.id})">🗑️</button>
+      </div>
+    </div>
+  `).join("");
+
+  const total = cart.reduce(
+    (sum, item) => sum + Number(item.price) * item.quantity,
+    0
+  );
+
+  totalBox.textContent = `${total.toFixed(3)} OMR`;
+  modal.classList.add("show");
+}
+function changeQuantity(productId, change) {
+  const item = cart.find(item => item.id === productId);
+
+  if (!item) return;
+
+  item.quantity += change;
+
+  if (item.quantity <= 0) {
+    cart = cart.filter(item => item.id !== productId);
+  }
+
+  saveCart();
+  updateCartCount();
+  openCart();
+}
+
+function removeFromCart(productId) {
+  cart = cart.filter(item => item.id !== productId);
+
+  saveCart();
+  updateCartCount();
+  openCart();
+}
+
+function closeCart() {
+  const modal = document.getElementById("cartModal");
+
+  if (modal) {
+    modal.classList.remove("show");
+  }
+}
+
+function checkoutCart() {
   if (!cart.length) {
     alert("Your cart is empty.");
     return;
   }
 
-  let message =
-    "SAFNAT CART\n\n";
-
-  cart.forEach(item => {
-    message +=
-      `${item.icon} ${item.name} × ${item.quantity}\n`;
-  });
-
-  const total =
-    cart.reduce(
-      (sum, item) =>
-        sum + item.price * item.quantity,
-      0
-    );
-
-  message +=
-    `\nTotal: ${total.toFixed(3)} OMR`;
-
-  message +=
-    "\n\n🛍️ Store Pickup Only";
-
-  alert(message);
+  alert(
+    "🛍️ SAFNAT Pickup Order\n\n" +
+    "Your cart is ready.\n" +
+    "Please collect your order from your selected SAFNAT branch.\n\n" +
+    "Store Pickup Only."
+  );
 }
-
 function openBranchModal() {
   document
     .getElementById("branches")
