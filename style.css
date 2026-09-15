@@ -823,3 +823,52 @@ a {
   font-weight: bold;
   font-size: 16px;
 }
+
+/* LOGIN */
+.login-section {
+  background: #eef7f1;
+}
+
+.login-box {
+  max-width: 420px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+.login-box input {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 15px;
+  border: 1px solid #d8e3dc;
+  border-radius: 10px;
+  outline: none;
+}
+
+.login-box input:focus {
+  border-color: #0b7a3b;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 13px;
+  border: 0;
+  border-radius: 10px;
+  background: #0b7a3b;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-box p {
+  text-align: center;
+  margin-top: 18px;
+  color: #666;
+}
+
+.login-box a {
+  color: #0b7a3b;
+  font-weight: bold;
+}
