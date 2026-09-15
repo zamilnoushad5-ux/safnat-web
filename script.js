@@ -521,6 +521,23 @@ function checkoutCart() {
     "Store Pickup Only."
   );
 }
+function loginUser() {
+  const phone = document.getElementById("loginPhone").value.trim();
+  const password = document.getElementById("loginPassword").value.trim();
+
+  if (!phone || !password) {
+    alert("Please enter your phone number and password.");
+    return;
+  }
+
+  localStorage.setItem("safnat_logged_in", "true");
+  localStorage.setItem("safnat_user_phone", phone);
+
+  alert("✅ Login successful! Welcome to SAFNAT.");
+
+  document.getElementById("loginPhone").value = "";
+  document.getElementById("loginPassword").value = "";
+}
 function openBranchModal() {
   document
     .getElementById("branches")
