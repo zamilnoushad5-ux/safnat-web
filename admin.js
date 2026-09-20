@@ -82,17 +82,23 @@ function renderAdminProducts() {
 }
 
 function addProduct() {
-  const name = document.getElementById("productName").value.trim();
-  const category = document.getElementById("productCategory").value;
-  const price = Number(document.getElementById("productPrice").value);
+  const name =
+    document.getElementById("productName").value.trim();
+
+  const category =
+    document.getElementById("productCategory").value;
+
+  const price =
+    Number(document.getElementById("productPrice").value);
+
   const oldPriceValue =
     document.getElementById("productOldPrice").value;
 
   const oldPrice =
     oldPriceValue === "" ? null : Number(oldPriceValue);
 
-  const icon =
-    document.getElementById("productIcon").value.trim() || "🛒";
+  const imageInput =
+    document.getElementById("productImage");
 
   const isOffer =
     document.getElementById("productOffer").checked;
@@ -110,24 +116,38 @@ function addProduct() {
     return;
   }
 
-  const newProduct = {
-    id: Date.now(),
-    name,
-    category,
-    icon,
-    price,
-    oldPrice,
-    isOffer,
-    inStock
+  const saveProduct = (image) => {
+    const newProduct = {
+      id: Date.now(),
+      name,
+      category,
+      image: image || "",
+      price,
+      oldPrice,
+      isOffer,
+      inStock
+    };
+
+    adminProducts.push(newProduct);
+
+    saveAdminProducts();
+    renderAdminProducts();
+    clearProductForm();
+
+    showAdminToast("Product added successfully! ✅");
   };
 
-  adminProducts.push(newProduct);
+  if (imageInput.files && imageInput.files[0]) {
+    const reader = new FileReader();
 
-  saveAdminProducts();
-  renderAdminProducts();
-  clearProductForm();
+    reader.onload = function(event) {
+      saveProduct(event.target.result);
+    };
 
-  showAdminToast("Product added successfully! ✅");
+    reader.readAsDataURL(imageInput.files[0]);
+  } else {
+    saveProduct("");
+  }
 }
 
 function editProduct(id) {
