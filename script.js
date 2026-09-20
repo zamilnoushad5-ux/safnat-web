@@ -161,10 +161,14 @@ function renderProducts(list = products) {
           : ""
       }
 
-      <div class="product-icon">
-        ${product.icon || "🛒"}
-      </div>
-
+      
+<div class="product-icon">
+  ${
+    product.image
+      ? `<img src="${product.image}" alt="${product.name}">`
+      : (product.icon || "🛒")
+  }
+</div>
       <p class="product-category">
         ${product.category}
       </p>
