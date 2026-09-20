@@ -8,7 +8,23 @@
 </head>
 
 <body>
+  
+<div id="adminLoginScreen" class="admin-login-screen">
+  <div class="admin-login-box">
+    <h2>🔐 SAFNAT Admin</h2>
+    <p>Enter admin password to continue</p>
 
+    <input
+      type="password"
+      id="adminPassword"
+      placeholder="Admin Password"
+    >
+
+    <button onclick="checkAdminLogin()">Login</button>
+
+    <p id="adminLoginMessage"></p>
+  </div>
+</div>
 <header class="top">
   <div class="brand">
     <div class="logo-mark">S</div>
