@@ -2,7 +2,7 @@ function checkAdminLogin() {
   const password = document.getElementById("adminPassword").value;
   const message = document.getElementById("adminLoginMessage");
 
-  if (password === "SAFNAT2026") {
+  if (password === "zamil9048651077") {
     document.getElementById("adminLoginScreen").style.display = "none";
     message.textContent = "";
     localStorage.setItem("safnat_admin_logged_in", "true");
