@@ -517,18 +517,65 @@ function closeCart() {
   }
 }
 
-function checkoutCart() {
+async function checkoutCart() {
   if (!cart.length) {
     alert("Your cart is empty.");
     return;
   }
 
+  const branchId = localStorage.getItem("safnat_branch");
+  const branch = branches.find(b => b.id === branchId);
+
+  if (!branch) {
+    alert("Please select a SAFNAT branch first.");
+    closeCart();
+    document.getElementById("branches")?.scrollIntoView({ behavior: "smooth" });
+    return;
+  }
+
+  const phone = localStorage.getItem("safnat_user_phone");
+
+  if (!phone) {
+    alert("Please login before placing your order.");
+    closeCart();
+    document.getElementById("login")?.scrollIntoView({ behavior: "smooth" });
+    return;
+  }
+
+  const total = cart.reduce(
+    (sum, item) => sum + Number(item.price) * item.quantity,
+    0
+  );
+
+  const { error } = await supabaseClient
+    .from("orders")
+    .insert({
+      phone: phone,
+      branch: branch.name + " — " + branch.location,
+      items: cart,
+      total: Number(total.toFixed(3)),
+      status: "New"
+    });
+
+  if (error) {
+    console.error(error);
+    alert("❌ Could not place the order. Please try again.");
+    return;
+  }
+
   alert(
-    "🛍️ SAFNAT Pickup Order\n\n" +
-    "Your cart is ready.\n" +
-    "Please collect your order from your selected SAFNAT branch.\n\n" +
+    "✅ Order placed successfully!\n\n" +
+    "Your order has been sent to SAFNAT.\n" +
+    "Branch: " + branch.name + "\n\n" +
     "Store Pickup Only."
   );
+
+  cart = [];
+  saveCart();
+  updateCartCount();
+  closeCart();
+}
+  
 }
 function loginUser() {
   const phone = document.getElementById("loginPhone").value.trim();
