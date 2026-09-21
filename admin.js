@@ -249,3 +249,37 @@ function showAdminToast(message) {
     toast.classList.remove("show");
   }, 2500);
 }
+async function loadOrders() {
+  const ordersList = document.getElementById("ordersList");
+
+  if (!ordersList) return;
+
+  const { data, error } = await supabaseClient
+    .from("orders")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    ordersList.innerHTML = "<p>❌ Could not load orders.</p>";
+    return;
+  }
+
+  if (!data.length) {
+    ordersList.innerHTML = "<p>No orders yet.</p>";
+    return;
+  }
+
+  ordersList.innerHTML = data.map(order => `
+    <div class="admin-order-card">
+      <h3>🔔 Order #${order.id}</h3>
+      <p><strong>Phone:</strong> ${order.phone}</p>
+      <p><strong>Branch:</strong> ${order.branch}</p>
+      <p><strong>Total:</strong> ${Number(order.total).toFixed(3)} OMR</p>
+      <p><strong>Status:</strong> ${order.status}</p>
+      <p><strong>Time:</strong> ${new Date(order.created_at).toLocaleString()}</p>
+    </div>
+  `).join("");
+}
+
+document.addEventListener("DOMContentLoaded", loadOrders);
