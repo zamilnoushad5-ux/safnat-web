@@ -1,4 +1,5 @@
-
+const SUPABASE_URL = "https://jkfwjfkszaitugduuamz.supabase.co/rest/v1/";
+const SUPABASE_KEY = "sb_publishable_Zpy-a6SPlOonHVEYKPJEaQ_FbHsBCby";
 const branches = [
   {
     id: "souq6",
