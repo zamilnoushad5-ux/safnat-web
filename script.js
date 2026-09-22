@@ -1,4 +1,10 @@
+const SUPABASE_URL = "https://jkfwjfkszaitugduuamz.supabase.co/rest/v1/";
+const SUPABASE_KEY = "
 
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 const branches = [
   {
     id: "souq6",
