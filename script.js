@@ -570,8 +570,7 @@ async function checkoutCart() {
   updateCartCount();
   closeCart();
 }
-  
-}
+
 function loginUser() {
   const phone = document.getElementById("loginPhone").value.trim();
   const password = document.getElementById("loginPassword").value.trim();
