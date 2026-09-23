@@ -557,7 +557,12 @@ async function checkoutCart() {
     (sum, item) => sum + Number(item.price) * item.quantity,
     0
   );
+const supabaseClient = getSupabaseClient();
 
+if (!supabaseClient) {
+  alert("❌ Order service is unavailable. Please try again.");
+  return;
+}
   const { error } = await supabaseClient
     .from("orders")
     .insert({
