@@ -528,110 +528,118 @@ function closeCart() {
   }
 }
 
-async function checkoutCart() {
-  if (!cart.length) {
-    alert("Your cart is empty.");
-    return;
-  }
-
-  if (!supabaseClient) {
-    alert("❌ Order service is unavailable. Please try again.");
-    return;
-  }
-
-  const branchId = localStorage.getItem("safnat_branch");
-
-  const branch = branches.find(
-    b => b.id === branchId
-  );
-
-  if (!branch) {
-    alert("Please select a SAFNAT branch first.");
-    closeCart();
-
-    document
-      .getElementById("branches")
-      ?.scrollIntoView({
-        behavior: "smooth"
-      });
-
-    return;
-  }
-
-  const phone =
-    localStorage.getItem("safnat_user_phone");
-
-  if (!phone) {
-    alert("Please login before placing your order.");
-    closeCart();
-
-    document
-      .getElementById("login")
-      ?.scrollIntoView({
-        behavior: "smooth"
-      });
-
-    return;
-  }
-
-  const total = cart.reduce(
-    (sum, item) =>
-      sum + Number(item.price) * item.quantity,
-    0
-  );
-
-  const order = {
-    phone: phone,
-    branch:
-      branch.name +
-      " — " +
-      branch.location,
-    items: cart,
-    total: Number(total.toFixed(3)),
-    status: "New"
-  };
-
-  console.log("Sending order:", order);
-
-  const {
-    data,
-    error
-  } = await supabaseClient
-    .from("orders")
-    .insert(order)
-    .select()
-    .single();
-
-  if (error) {
-    console.error("ORDER ERROR:", error);
-
-    alert(
-      "❌ Could not place the order.\n\n" +
-      error.message
-    );
-
-    return;
-  }
-
-  console.log("ORDER SUCCESS:", data);
-
-  alert(
-    "✅ Order placed successfully!\n\n" +
-    "Order ID: #" +
-    data.id +
-    "\n\n" +
-    "Branch: " +
-    branch.name +
-    "\n\n" +
-    "Total: " +
-    Number(data.total).toFixed(3) +
-    " OMR\n\n" +
-    "Store Pickup Only."
-  );
-
-  cart = [];
-
-  saveCart();
-  updateCartCount();
-  closeCart();
+if (!cart.length) {
+alert("Your cart is empty.");
+return;
 }
+
+const branchId = localStorage.getItem("safnat_branch");
+const branch = branches.find(b => b.id === branchId);
+
+if (!branch) {
+alert("Please select a SAFNAT branch first.");
+closeCart();
+document.getElementById("branches")?.scrollIntoView({ behavior: "smooth" });
+return;
+}
+
+const phone = localStorage.getItem("safnat_user_phone");
+
+if (!phone) {
+alert("Please login before placing your order.");
+closeCart();
+document.getElementById("login")?.scrollIntoView({ behavior: "smooth" });
+return;
+}
+
+const total = cart.reduce(
+(sum, item) => sum + Number(item.price) * item.quantity,
+0
+);
+const supabaseClient = getSupabaseClient();
+
+if (!supabaseClient) {
+alert("❌ Order service is unavailable. Please try again.");
+return;
+}
+const { error } = await supabaseClient
+.from("orders")
+.insert({
+phone: phone,
+branch: branch.name + " — " + branch.location,
+items: cart,
+total: Number(total.toFixed(3)),
+status: "New"
+});
+
+if (error) {
+console.error(error);
+alert("❌ Could not place the order. Please try again.");
+return;
+}
+
+alert(
+"✅ Order placed successfully!\n\n" +
+"Your order has been sent to SAFNAT.\n" +
+"Branch: " + branch.name + "\n\n" +
+"Store Pickup Only."
+);
+
+cart = [];
+saveCart();
+updateCartCount();
+closeCart();
+}
+
+function loginUser() {
+const phone = document.getElementById("loginPhone").value.trim();
+const password = document.getElementById("loginPassword").value.trim();
+
+if (!phone || !password) {
+alert("Please enter your phone number and password.");
+return;
+}
+
+localStorage.setItem("safnat_logged_in", "true");
+localStorage.setItem("safnat_user_phone", phone);
+
+alert("✅ Login successful! Welcome to SAFNAT.");
+
+document.getElementById("loginPhone").value = "";
+document.getElementById("loginPassword").value = "";
+}
+function openBranchModal() {
+document
+.getElementById("branches")
+?.scrollIntoView({
+behavior: "smooth"
+});
+}
+
+document.addEventListener(
+"DOMContentLoaded",
+function () {
+
+renderProducts();  
+renderBranches();  
+loadSelectedBranch();  
+updateCartCount();  
+
+const searchInput =  
+  document.getElementById(  
+    "searchInput"  
+  );  
+
+if (searchInput) {  
+  searchInput.addEventListener(  
+    "keydown",  
+    function (event) {  
+      if (event.key === "Enter") {  
+        searchProducts();  
+      }  
+    }  
+  );  
+}
+
+}
+);
