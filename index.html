@@ -413,6 +413,19 @@
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  const SUPABASE_URL = "https://jkfwjfkszaitugduuamz.supabase.co/rest/v1/";
+  const SUPABASE_KEY = "sb_publishable_Zpy-a6SPlOonHVEYKPJEaQ_FbHsBCby";
+  const supabaseClient =
+    window.supabase?.createClient
+      ? window.supabase.createClient(
+          SUPABASE_URL,
+          SUPABASE_KEY
+        )
+      : null;
+</script>
+
 <script src="script.js"></script>
   
 <script>
